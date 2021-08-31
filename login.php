@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: products.php");
+    header("location: home1.php");
     exit;
 }
 
