@@ -14,7 +14,7 @@ if ($del) {
     header("location:user.php");
     exit;
 } else {
-    echo "Error deleting record";
+    echo "ERROR";
 }
 
 
