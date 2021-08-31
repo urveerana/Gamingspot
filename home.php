@@ -195,7 +195,7 @@ if( array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
         </div>
     </div>
     <div class="card" style="width: 22rem;object-fit: contain" >
-        <img class="card-img-top" src="images/games/5.jpg"  height="65%" style="margin: auto;object-fit: contain"alt="Card image cap">
+        <img class="card-img-top" src="images/games/5.jpg"  height="53%" style="margin: auto;object-fit: contain"alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">The Zelda</h5>
             <a href="login.php" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm">Click for More info</a>
