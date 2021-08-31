@@ -1,3 +1,8 @@
+<?php
+session_start();
+include_once ('config.php');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +54,6 @@
     </nav>
 </header>
 <body>
-
 <div class="container" style="background: white;border: 1px black solid">
 
 
@@ -65,7 +69,7 @@
                         <h6 class="my-0">Total Amount</h6>
                         <small></small>
                     </div>
-                    <span class="text-success">-$5</span>
+                    <span class="text-success">$0</span>
                 </li>
                 <form class="card p-2">
                     <div class="input-group">
@@ -103,7 +107,6 @@
                         <div class="md-form md-outline my-2">
                             <input style="border: 1px black solid" type="text" id="cc-name" class="form-control" required>
                             <label for="cc-name">Name on card</label>
-                            <small class="text-muted">Full name as displayed on card</small>
                         </div>
                         <div class="invalid-feedback">
                             Name on card is required
@@ -140,14 +143,18 @@
                     </div>
                 </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                <button class="btn btn-success  rounded-pill py-2 btn-block" type="submit">Continue to checkout</button>
             </form>
         </div>
     </div>
+
+
 </body>
-<footer style="">
-    <a href="index.html">About Us</a>
-    <a href="#">Addresses</a>
-    <a href="login.html">Contact</a>
+<footer style="position: relative">
+
+    <a href="aboutus.php" style="color: black">About Us</a>
+
+    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
+    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
 </footer>
 </html>
