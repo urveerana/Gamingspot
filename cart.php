@@ -57,9 +57,8 @@ foreach ($products as $product) {
 
 
 
-            background: #eecda3;
-            background: -webkit-linear-gradient(to right, #eecda3, #ef629f);
-            background: linear-gradient(to right, #eecda3, #ef629f);
+            background: lightgreen;
+            background: linear-gradient( lightgreen, greenyellow);
             min-height: 100vh;
 
         }
