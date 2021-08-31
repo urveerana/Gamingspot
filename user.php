@@ -47,7 +47,7 @@ require_once ("config.php");
             <li>
                 <div class="dropdown" style="padding : 45px">
                     <button class="btn btn-primary rounded-pill btn-block dropdown-toggle" style="background-color :lightgreen;color:black type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Products
+                        User
                     </button>
                     <ul class="dropdown-menu" style="background-color:lightgreen" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item rounded-pill btn-block" href="admin.php">Products</a></li>
