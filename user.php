@@ -45,13 +45,13 @@ require_once ("config.php");
         </h1>
         <ul >
             <li>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        User
+                <div class="dropdown" style="padding : 45px">
+                    <button class="btn btn-primary rounded-pill btn-block dropdown-toggle" style="background-color :lightgreen;color:black type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Products
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="admin.php">Products</a></li>
-                        <li><a class="dropdown-item" href="user.php">User</a></li>
+                    <ul class="dropdown-menu" style="background-color:lightgreen" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item rounded-pill btn-block" href="admin.php">Products</a></li>
+                        <li><a class="dropdown-item rounded-pill btn-block" href="user.php">User</a></li>
 
 
                     </ul>
@@ -59,7 +59,7 @@ require_once ("config.php");
 
 
             </li>
-            <li><a href="home.php" style="margin: 400px 1400px">Logout</a></li>
+            <li><a href="adminlogout.php" style="margin: 400px 1400px">Logout</a></li>
         </ul>
 
     </nav>
