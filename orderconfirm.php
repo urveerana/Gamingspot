@@ -33,8 +33,8 @@
         }
 
     </style>
-
 </head>
+
 
 <header>
     <nav >
