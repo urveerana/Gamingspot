@@ -17,7 +17,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
-    
+   </head> 
     <style>
         .form-check-input[type=checkbox].filled-in:checked+label:after,
         label.btn input[type=checkbox].filled-in:checked+label:after {
@@ -33,7 +33,7 @@
         }
 
     </style>
-</head>
+
 
 
 <header>
