@@ -11,21 +11,62 @@ if(isset($_SESSION["valid"]) && $_SESSION["valid"] === true){
 
 
 $product_name = $product_desc =$product_category=$product_quantity=$product_price=$product_image= "";
+$product_name_err = $product_desc_err =$product_category_err=$product_quantity_err=$product_price_err=$product_image_err= "";
+global $error;
+
+
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $product_name = $_POST['product_name'];
-    $product_desc = $_POST['product_desc'];
-    $product_category = $_POST['product_categories'];
-    $product_quantity = $_POST['quantity'];
-    $product_price = $_POST['price'];
-    $product_image = $_POST['file'];
+
+    if(empty(trim($_POST["product_name"]))){
+        $product_name_err = "Enter Product Name";
+    } else{
+        $product_name = trim($_POST["product_name"]);
+    }
+
+    if(empty(trim($_POST["product_desc"]))){
+        $product_desc_err = "Enter Product Desc";
+    } else{
+        $product_desc = trim($_POST["product_desc"]);
+    }
+
+    if(empty(trim($_POST["product_categories"]))){
+        $product_category_err = "Enter Category";
+    } else{
+        $product_category = trim($_POST["product_categories"]);
+    }
+    if(empty(trim($_POST["quantity"]))){
+        $product_quantity_err = "Enter Quantity";
+    } else{
+        $product_quantity = trim($_POST["quantity"]);
+    }
+    if(empty(trim($_POST["price"]))){
+        $product_price_err = "Enter Price";
+    } else{
+        $product_price = trim($_POST["price"]);
+    }
+    if(empty(trim($_POST["file"]))){
+        $product_image_err = "Enter Image Url";
+    } else{
+        $product_image = trim($_POST["file"]);
+    }
 
 
+
+
+
+if(empty($product_name_err) && empty($product_desc_err) && empty($product_category_err) && empty($product_quantity_err) && empty($product_price_err) && empty($product_image_err)) {
     $sql = "INSERT INTO products  VALUES (NULL,'$product_name','$product_desc','$product_category','$product_quantity','$product_price','$product_image')";
 
     if (mysqli_query($mysqli, $sql)) {
-            echo '<script>alert("Product Added in a database successfully.")</script>';
+        echo '<script>alert("Product Added in a database successfully.")</script>';
+        header("location: admin.php");
+        exit;
+    } else {
 
+        $error = "One Of The field is empty";
     }
+}
 }
 ?>
 
@@ -78,6 +119,8 @@ input,textarea{
                     <ul class="dropdown-menu "  style="background-color: lightgreen" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item rounded-pill btn-block" href="admin.php">Products</a></li>
                         <li><a class="dropdown-item rounded-pill btn-block" href="user.php">User</a></li>
+                        <li><a class="dropdown-item rounded-pill btn-block" href="usermessage.php">Messages</a></li>
+
                     </ul>
                 </div>
 
@@ -95,20 +138,20 @@ input,textarea{
     <fieldset>
 
         <legend>PRODUCTS</legend>
-
+        <span class="text-danger"><?php echo $error; ?></span>
         <div class="form-group">
             <label class="col-md-4 control-label" >PRODUCT NAME</label>
             <div class="col-md-4">
-                <input id="product_name" style="border: 1px black solid" name="product_name" placeholder="PRODUCT NAME" class="form-control input-md"  type="text" required>
-
+                <input id="product_name" style="border: 1px black solid" name="product_name" placeholder="PRODUCT NAME" class="form-control input-md"  type="text" >
+                <span class="text-danger"><?php echo $product_name_err; ?></span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" >PRODUCT DESCRIPTION</label>
             <div class="col-md-4">
-                <textarea id="product_desc" style="border: 1px black solid" name="product_desc" placeholder="PRODUCT DESCRIPTION" class="form-control input-md" required></textarea>
-
+                <textarea id="product_desc" style="border: 1px black solid" name="product_desc" placeholder="PRODUCT DESCRIPTION" class="form-control input-md" ></textarea>
+                <span class="text-danger"><?php echo $product_desc_err; ?></span>
             </div>
         </div>
 
@@ -121,29 +164,30 @@ input,textarea{
                     <option>Xbox</option>
                 </select>
             </div>
+            <span class="text-danger"><?php echo $product_category_err; ?></span>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" >AVAILABLE QUANTITY</label>
             <div class="col-md-4">
-                <input id="quantity" style="border: 1px black solid" name="quantity" placeholder="AVAILABLE QUANTITY" class="form-control input-md"  type="text" required>
-
+                <input id="quantity" style="border: 1px black solid" name="quantity" placeholder="AVAILABLE QUANTITY" class="form-control input-md"  type="text" >
+                <span class="text-danger"><?php echo $product_quantity_err; ?></span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" >PRICE</label>
             <div class="col-md-4">
-                <input id="price" name="price" style="border: 1px black solid" placeholder="Price" class="form-control input-md" type="text" required>
-
+                <input id="price" name="price" style="border: 1px black solid" placeholder="Price" class="form-control input-md" type="text" >
+                <span class="text-danger"><?php echo $product_price_err; ?></span>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" >IMAGE LINK</label>
             <div class="col-md-4">
-                <textarea id="file" style="border: 1px black solid" name="file" placeholder="LINK" class="form-control input-md" required></textarea>
-
+                <textarea id="file" style="border: 1px black solid" name="file" placeholder="LINK" class="form-control input-md" ></textarea>
+                <span class="text-danger"><?php echo $product_image_err; ?></span>
             </div>
         </div>
 
@@ -156,7 +200,7 @@ input,textarea{
 </form>
 
 <table border="2" width="100%">
-    <tr>
+    <tr style="text-align: center">
         <td>Sr.No.</td>
         <td>Name</td>
         <td>Images</td>
@@ -170,7 +214,7 @@ input,textarea{
     while($data = mysqli_fetch_array($records))
     {
         ?>
-        <tr >
+        <tr style="text-align: center">
             <td><?php echo $data['id']; ?></td>
             <td><?php echo $data['product_name']; ?></td>
             <td><img src="<?php echo $data['product_image']; ?>" width="100" height="100"></td>
