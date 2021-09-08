@@ -1,6 +1,10 @@
 <?php
 session_start();
 include_once ('config.php');
+include_once ('badge.php');
+
+
+$total = $_GET['total'];
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +25,11 @@ include_once ('config.php');
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
+    <script>
+        $( function() {
+            $( document ).tooltip();
+        } );
+    </script>
     <style>
         .form-check-input[type=checkbox].filled-in:checked+label:after,
         label.btn input[type=checkbox].filled-in:checked+label:after {
@@ -45,9 +53,31 @@ include_once ('config.php');
         <img src="images/Logo.png" height="60px" />
 
         <ul style="padding: 25px">
-            <li><a href="home1.php">Home</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-            <li><a href="home.php">Logout</a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="home1.php">Home</a></li>
+            <li><a href="cart.php"><style>
+                        #ex4 .p1[data-count]:after{
+                            position:absolute;
+                            right:10%;
+                            top:8%;
+                            content: attr(data-count);
+                            font-size:70%;
+                            padding:.2em;
+                            border-radius:50%;
+                            line-height:1em;
+                            color: white;
+                            background:rgba(255,0,0,.85);
+                            text-align:center;
+                            min-width: 1em;
+                        }
+                        .rounded-pill:hover{
+                            background-color: yellow;
+                            color: black;
+                        }
+                    </style>
+                    <div id="ex4">
+  <span class="p1 fa-stack  has-badge" data-count="<?php echo $rowcount?>">
+    <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0"></i>
+  </span></a></li>
 
         </ul>
 
@@ -69,44 +99,72 @@ include_once ('config.php');
                         <h6 class="my-0">Total Amount</h6>
                         <small></small>
                     </div>
-                    <span class="text-success">$0</span>
+                    <span class="text-success">$<?=$_GET['total']?></span>
                 </li>
-                <form class="card p-2">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Promo code">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary btn-md my-0 ml-0">Redeem</button>
+
+
+                </ul>
+            <div style="margin: ">
+                <label>Testing Card No</label>
+                <br>
+                <label>5200828282828210</label>
+                <br>
+                <label>378282246310005</label>
+                <br>
+                <label>4242424242424242</label>
+            </div>
+            </div>
+        <div class="col-md-8 order-md-1">
+            <form class="needs-validation" novalidate  role="form" action="orderconfirm.php" method="POST" name="cardpayment" id="payform">
+
+                <input type="hidden" name="total" value="<?php echo $total;?>"/>
+
+                <h4 class="mb-3"><strong>Biling details</strong></h4>
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" for="form6Example1">First Name</label>
+                            <input type="text" style="border: 1px red solid;width: 50%;" id="fname" value="<?php echo $_SESSION['username'];?>" autofocus placeholder="First Name" class="form-control" required/>
                         </div>
                     </div>
-                </form>
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Total After Promo/Discount</span>
-                    <strong>$20</strong>
-                </li>
-            </ul>
+                    <div class="col" >
+                        <div class="form-outline">
+                            <label class="form-label" for="form6Example2">Last name</label>
+                            <input type="text" style="border: 1px red solid;width: 50%" id="lname" placeholder="Last Name" class="form-control" required />
+                        </div>
+                    </div>
 
-        </div>
-        <div class="col-md-8 order-md-1">
-            <form class="needs-validation" novalidate>
+                <div class="form-outline ">
+                    <label class="form-label" for="form6Example4">Address</label>
+                    <input type="text" style="border: 1px red solid;width: 50%" id="add" name="add" placeholder="Address"class="form-control"required />
+                </div>
 
-                <h4 class="mb-3"><strong>Payment</strong></h4>
+                <div class="form-outline ">
+                    <label class="form-label" for="form6Example5">Email</label>
+                    <input type="email" style="border: 1px red solid;width: 50%" id="email" name="email" placeholder="Email"class="form-control" required />
+                </div>
+
+                <div class="form-outline ">
+                    <label class="form-label" for="form6Example6">Phone</label>
+                    <input type="text" style="border: 1px red solid;width: 50%"id="phone" name="phone" min=0 maxlength="12" placeholder="Phone"class="form-control" required/>
+                </div>
+
 
                 <div class="d-block my-3">
                     <div class="form-check pl-0">
-                        <input style="border: 1px black solid" id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
                         <label class="form-check-label" for="credit">Credit card</label>
+                        <input style="border: 1px black solid" id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
                     </div>
                     <div class="form-check pl-0">
-                        <input style="border: 1px black solid" id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
                         <label class="form-check-label" for="debit">Debit card</label>
+                        <input style="border: 1px black solid" id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+
                     </div>
 
                 </div>
-                <div class="row" style="margin: 0px -70px;">
                     <div class="col-md-6 mb-2">
                         <div class="md-form md-outline my-2">
-                            <input style="border: 1px black solid" type="text" id="cc-name" class="form-control" required>
                             <label for="cc-name">Name on card</label>
+                            <input type="text" style="border: 1px red solid" class="form-control" name="holdername" placeholder="Enter Card Holder Name"  required id="name" />
                         </div>
                         <div class="invalid-feedback">
                             Name on card is required
@@ -114,47 +172,82 @@ include_once ('config.php');
                     </div>
                     <div class="col-md-6 mb-2">
                         <div class="md-form md-outline my-2">
-                            <input style="border: 1px black solid" type="text" id="cc-number" class="form-control" required>
                             <label for="cc-number">Credit card number</label>
+                            <input type="text" style="border: 1px red solid" class="form-control" name="card_number" placeholder="Valid Card Number" autocomplete="cc-number" id="card_number" maxlength="16" data-stripe="number" required />
                         </div>
                         <div class="invalid-feedback">
                             Credit card number is required
                         </div>
                     </div>
-                </div>
-                <div class="row" >
-                    <div class="col-md-3 mb-2" style="margin: -100px -380px;">
-                        <div class="md-form md-outline my-2">
-                            <input style="border: 1px black solid" type="text" id="cc-expiration" class="form-control" required>
-                            <label for="cc-expiration">Expiration</label>
-                        </div>
+
+
+                                <div class="form-group">
+                                    <label for="cardExpiry">MM</label>
+                                    <input type="text"  style="width: 75px;border: 1px red solid" class="form-control" name="card_exp_month" placeholder="MM" data-stripe="exp_month"  required id="card_exp_month" />
+                                </div>
+
+
+
                         <div class="invalid-feedback">
                             Expiration date required
                         </div>
-                    </div>
-                    <div class="col-md-3 mb-2" style="margin: -100px -90px; ">
-                        <div class="md-form md-outline my-2">
-                            <input style="border: 1px black solid" type="text" id="cc-cvv" class="form-control" required>
-                            <label for="cc-cvv">CVV</label>
+
+                        <div class="form-group">
+                            <label for="cardExpiry">YYYY</label>
+                            <input type="text" class="form-control" style="width: 75px;border: 1px red solid" name="card_exp_year"   id="card_exp_year"  data-stripe="exp_year" placeholder="YYYY"   required  />
+                            <button class="btn btn btn-success rounded-pill py-2 btn-block" style="margin: 0px 180px; type="submit" id="pay">PAY NOW ( $<?php echo $total;?> )</button>
+
                         </div>
+                <div class="form-group">
+                            <input type="password" class="form-control" style="width: 75px;border: 1px red solid" name="card_cvc" placeholder="CVV" autocomplete="cc-csc" id="card_cvc" required />
+                    <label for="cc-cvv">CVV</label>
+
+                </div>
+
                         <div class="invalid-feedback">
                             Security code required
                         </div>
-                    </div>
-                </div>
-                <hr class="mb-4">
-                <button class="btn btn-success  rounded-pill py-2 btn-block" type="submit">Continue to checkout</button>
+
             </form>
         </div>
+
     </div>
 
 
 </body>
-<footer style="position: relative">
 
-    <a href="aboutus.php" style="color: black">About Us</a>
+<script src="https://js.stripe.com/v2/"></script>
+<script src="js/jquery.min.js"></script>
 
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
-</footer>
+<script>
+    Stripe.setPublishableKey('pk_test_51JV4w3HIYxZbUlwCM9gCCkQ5Hm0EvMzrjNvP1kmMzmSodCqb0PR1jumxypkcvJm2ifIUdc9qaRBPSlSx1N2hyMyn00yi6QwFhq');
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $('#pay').removeAttr("disabled");
+            $(".payment-status").html('<p>'+response.error.message+'</p>');
+        } else {
+            var form$ = $("#payform");
+            var token = response.id;
+            form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+            form$.get(0).submit();
+        }
+    }
+
+    $(document).ready(function() {
+        $("#payform").submit(function() {
+            $('#pay').attr("disabled", "disabled");
+
+            Stripe.createToken({
+                number: $('#card_number').val(),
+                exp_month: $('#card_exp_month').val(),
+                exp_year: $('#card_exp_year').val(),
+                cvc: $('#card_cvc').val()
+            }, stripeResponseHandler);
+
+            return false;
+        });
+    });
+</script>
+<?php require_once ('footer.php')?>
 </html>

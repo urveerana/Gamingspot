@@ -1,5 +1,130 @@
 <?php
 session_start();
+
+require_once ('config.php');
+
+
+$Message_Status = '';
+$OrderStatus = 'error';
+$id = '';
+global $total;
+$user = htmlspecialchars($_SESSION["username"]);
+
+
+
+if(!empty($_POST['stripeToken'])){
+
+    $token = $_POST['stripeToken'];
+    $name = $_POST['holdername'];
+    $card_no = $_POST['card_number'];
+    $card_cvc = $_POST['card_cvc'];
+    $card_exp_month = $_POST['card_exp_month'];
+    $card_exp_year = $_POST['card_exp_year'];
+
+    $total= $_POST['total'];
+    $add = $_POST['add'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+
+
+
+
+
+    require_once('stripe-php-master/init.php');
+
+    $stripe = array(
+        "SecretKey"=>"sk_test_51JV4w3HIYxZbUlwCwLPrQiNKP4ZCrsaVwVBMNUl1CIfqNwNhou89PK97xT8vFb68jquXMMqHsKOuFvV9YxK5K4jj00eqPHERnH",
+        "PublishableKey"=>"pk_test_51JV4w3HIYxZbUlwCM9gCCkQ5Hm0EvMzrjNvP1kmMzmSodCqb0PR1jumxypkcvJm2ifIUdc9qaRBPSlSx1N2hyMyn00yi6QwFhq"
+    );
+
+
+    \Stripe\Stripe::setApiKey($stripe['SecretKey']);
+
+    $customer = \Stripe\Customer::create(array(
+        'source'  => $token,
+        'name' => $name,
+    ));
+
+    $order_no = strtoupper(str_replace('.','',uniqid('', true)));
+
+    $itemPrice = ($total*100);
+    $currency = "cad";
+
+    $charge = \Stripe\Charge::create(array(
+        'customer' => $customer->id,
+        'amount'   => $itemPrice,
+        'currency' => $currency,
+        'metadata' => array(
+            'order_id' => $order_no
+        )
+    ));
+
+    $each_value = $charge->jsonSerialize();
+
+    if($each_value['amount_refunded'] == 0 && empty($each_value['failure_code']) && $each_value['paid'] == 1 && $each_value['captured'] == 1){
+
+        $transactionID = $each_value['balance_transaction'];
+        $paidAmount = $each_value['amount'];
+        $paidCurrency = $each_value['currency'];
+        $payment_status = $each_value['status'];
+        $payment_date = date("Y-m-d H:i:s");
+        $dt_tm = date('Y-m-d H:i:s');
+
+
+        if($payment_status == 'succeeded'){
+            $OrderStatus = 'success';
+            $Message_Status = 'Your Payment has been Successful!';
+
+
+
+            $amount12 = 100;
+            $previousValues = array();
+            for ($i = 0; $i < $amount12; $i++){
+                $rand = rand(0,9999);
+                while (in_array($rand, $previousValues)){
+                    $rand = rand(0, 9999);
+                }
+                $previousValues[] = $rand;
+                $today = date("Ymd");
+                $unique1 = $today.$rand;
+            }
+
+            $today1 = date("Y-m-d-h-i-s");
+
+            $str1 = date("Ymdhms") + 1;
+            $sql = " INSERT INTO `history`(`id`, `customername`, `email`, `address`, `phone`, `orderno`, `total`, `time`) 
+            VALUES (NULL,'$user','$email','$add','$phone','$unique1','$total','$today1')";
+
+
+            mysqli_query($mysqli, $sql);
+
+            $id1 = $_SESSION['id'];
+            $cartp = "SELECT * FROM `cart` WHERE `uid` = '$id1'";
+            $re = mysqli_query($mysqli, $cartp);
+            if (mysqli_num_rows($re)>0) {
+                while ($row = mysqli_fetch_assoc($re)) {
+                    $q = (int)$row['quantity'];
+                    $pd = (int)$row['pid'];
+                    $dp = "UPDATE `products` SET `product_quantity` = `product_quantity`-'$q' WHERE `id` = '$pd'";
+                    mysqli_query($mysqli, $dp);
+                }
+            }
+
+            $sql1 = "DELETE FROM `cart` WHERE `uid`='$id1'";
+            mysqli_query($mysqli, $sql1);
+
+
+        } else{
+            $Message_Status = "Your Payment has Failed!";
+        }
+    } else{
+        $Message_Status = "Transaction has been failed!";
+    }
+} else{
+    $Message_Status = "Error on form submission.";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,14 +152,13 @@ session_start();
             border: 2px solid #4285f4;
             background-color: #4285f4;
         }
-        .mb-4-5 {
-            margin-bottom: 24px;
-        }
         body{
             background-image: url("images/5.jpg");
             background-size: cover;
         }
-
+         .rounded-pill:hover{
+             background-color: yellow;
+         }
     </style>
 
 </head>
@@ -44,10 +168,7 @@ session_start();
         <img src="images/Logo.png" height="60px" />
 
         <ul style="padding: 25px">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-            <li><a href="home.php">Logout</a></li>
-
+            <li><a class="rounded-pill btn-block p-1 " href="home1.php">Home</a></li>
         </ul>
 
     </nav>
@@ -63,10 +184,35 @@ session_start();
                         <div class="text-center order-details">
                             <div class="d-flex justify-content-center mb-5 flex-column align-items-center">
                                 <span class="check1"><i class="fas fa-check fa-5x"></i></span>
+
+                                <h1 class="<?php echo $OrderStatus; ?>"><?php echo $Message_Status; ?></h1>
+
+                                <h6 class="heading">Payment Information - </h6>
+                                <br>
+
+                            <?php
+                            global $unique;
+                            $amount = 100;
+                            $previousValues = array();
+                            for ($i = 0; $i < $amount; $i++){
+                                $rand = rand(0,9999);
+                                while (in_array($rand, $previousValues)){
+                                    $rand = rand(0, 9999);
+                                }
+                                $previousValues[] = $rand;
+                                $today = date("Ymd");
+                                $unique = $today.$rand;
+                            }
+                            ?>
+
+                                <p><b>Transaction ID: </b><?php echo $unique?> </p>
+                                <p><b>Paid Amount:</b>$ <?php echo $total?> </p>
+
+
                                 <span class="font-weight-bold" style="font-size: 40px">Order Confirmed</span>
-                                <small class="mt-2">Thank You For Shopping at GamingSpot</small> </div>
-                            <button class="btn btn-danger rounded-pill py-2 btn-block"><a href="home.php" style="color: white">Go to Home</a></button>
-                        </div>
+                                <small class="mt-2">Thank You <b style="text-transform:uppercase"><?php echo $user?></b> For Shopping at GamingSpot</small> </div>
+
+                            <button class="btn btn-danger btn-block order-button"><a href="home1.php" style="color: white">Go to Home</a></button>                        </div>
                     </div>
 
                     </div>
@@ -77,11 +223,5 @@ session_start();
     </div>
 </div>
 </body>
-<footer style="position: relative">
-
-    <a href="aboutus.php" style="color: black">About Us</a>
-
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
-</footer>
+<?php require_once ('footer.php')?>
 </html>
