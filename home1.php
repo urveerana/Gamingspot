@@ -9,7 +9,7 @@ if( array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
 }
 $user = htmlspecialchars($_SESSION["username"]);
 
-
+include_once ('badge.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,7 @@ $user = htmlspecialchars($_SESSION["username"]);
 
         <ul>
             <li style="padding-top: -5px">
-                <div class="btn-group shadow-0" style="margin: 0px -300px">
+                <div class="btn-group shadow-0" style="margin: 0px -220px">
                     <button
                             type="button"
                             class="btn btn-light dropdown-toggle rounded-pill py-2 btn-block"
@@ -70,39 +70,65 @@ $user = htmlspecialchars($_SESSION["username"]);
                     </button>
                     <ul class="dropdown-menu" style="background-color: lightgreen;color: white">
                         <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps5.php">Ps5</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="#">Ps4</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="#">Xbox</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps4.php">Ps4</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Xbox.php">Xbox</a></li>
 
                     </ul>
                 </div>
 
 
+                <style>
+                    .rounded-pill:hover{
+                        background-color: yellow;
+                    }
 
+                </style>
             </li>
 
             <li>
-            <form style="margin: 15px;-800px ">
-                <div class="input-group" >
-                    <div class="form-outline">
-                        <input type="search" id="form1" class="form-control" placeholder="Search" style="width: 100%;margin: 0px"/>
+                <form style="margin: 15px;-800px " action="searchbutton.php" method="post">
+                    <div class="input-group" >
+                        <div class="form-outline">
+                            <input type="text"  name="search" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
+                        </div>&nbsp;
+                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="Search" >
+
                     </div>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
+                </form>
             </li>
-            <li><a href="home1.php">Home</a></li>
-            <li><a href="cart.php"><i class="fas fa-shopping-cart"></i></a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="home1.php">Home</a></li>
+            <li><a href="cart.php"><style>
+                        #ex4 .p1[data-count]:after{
+                            position:absolute;
+                            right:10%;
+                            top:8%;
+                            content: attr(data-count);
+                            font-size:70%;
+                            padding:.2em;
+                            border-radius:50%;
+                            line-height:1em;
+                            color: white;
+                            background:rgba(255,0,0,.85);
+                            text-align:center;
+                            min-width: 1em;
+                        }
+
+                    </style>
+                    <div id="ex4">
+  <span class="p1 fa-stack  has-badge" data-count="<?php echo $rowcount?>">
+    <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0"></i>
+  </span></a></li>
            <li> <div style="text-align: end">
 
-                <b style="text-transform:uppercase"><i class="fas fa-user fa-2px"><?php echo$user ?></i>  </b>
+                <b style="text-transform:uppercase"><i class="fas fa-user fa-2px" style="text-align: center"><br><?php echo$user ?></i>  </b>
 
 
 
 
             </div></li>
-            <li><a href="logout.php" >Logout</a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="order_history.php" >History</a></li>
+
+            <li><a class="rounded-pill btn-block p-1 " href="logout.php" >Logout</a></li>
 
         </ul>
 
@@ -135,7 +161,6 @@ $user = htmlspecialchars($_SESSION["username"]);
   width: 50%;"/></div>
 </div>
 
-<!-- Gallery -->
 <div class="row">
     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
         <img
@@ -205,22 +230,73 @@ $user = htmlspecialchars($_SESSION["username"]);
         </div>
     </div>
     <div class="card" style="width: 22rem;" >
-        <img class="card-img-top" src="images/games/5.jpg"  height="53%" style="margin: auto;object-fit: contain"alt="Card image cap">
+        <img class="card-img-top" src="images/games/7.jfif"  height="49%" style="margin: auto;object-fit: contain"alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">The Zelda</h5>
-            <a href="Ps5.php" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm">Click for More info</a>
+            <h5 class="card-title">God Of War</h5>
+            <a href="Ps4.php" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm">Click for More info</a>
+        </div>
+    </div>
+    <div class="card" style="width: 22rem;" >
+        <img class="card-img-top" src="images/games/8.jfif"  height="43%" style="margin: auto;object-fit: contain"alt="Card image cap">
+        <br>  <div class="card-body">
+            <h5 class="card-title">Call Of Duty</h5>
+            <a href="Xbox.php" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm">Click for More info</a>
         </div>
     </div>
 </div>
 
 <br>
-<br>
-<br>
-</body>
-<footer style="position: relative">
+<div class="container" style=" border: 2px solid black ;
+        background-color:lightblue ;
+    margin: 90px 120px">
 
-    <a href="aboutus.php" style="color: black">About Us</a>
+    <div class="row">
+        <div class="col-sm-12 col-lg-12" style=" border: 2px solid black ;
+         background-color:red ;
+         color: white;
+         margin: 90px 120px">
+            <h1 class="h1">
+                Contact us <small>Feel free to Share</small></h1>
+        </div>
+        <div class="col-md-8">
+            <div class="well well-sm">
+                <form action="feedback.php" method="post">
+                    <div class="row">
+                        <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
+                            <div class="form-group">
+                                <label for="name" style="color: green;font-weight: bold;font-size: 22px" >
+                                    Name</label>
+                                <input type="text" class="form-control" id="name" style="border: 3px solid black" placeholder="Enter name" name="name" value="<?php echo $user?>" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email" style="color: green;font-weight: bold;font-size: 22px">
+                                    Email Address</label>
+                                <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                    <input type="email" class="form-control" id="email" style="border: 3px solid black" placeholder="Enter email" name="email" required="required" /></div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm" style="border: 3px solid black" name="messagebtn"id="btnContactUs" value="Send Message">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
+                            <div class="form-group">
+                                <label for="name" style="color: green;font-weight: bold;font-size: 22px">
+                                    Message</label>
+                                <textarea name="message" id="message" class="form-control" rows="4" cols="25" style="border: 3px solid black" required="required"
+                                          placeholder="Message"></textarea>
+                            </div>
 
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
-</footer>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php require_once ('footer.php')?>
