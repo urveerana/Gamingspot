@@ -6,6 +6,14 @@ include_once ('badge.php');
 
 $total = $_GET['total'];
 
+if(isset($_POST['pay'])) {
+
+    if(empty($_POST['name'])){
+        echo 'Empty Name';
+    }
+
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +78,7 @@ $total = $_GET['total'];
                             min-width: 1em;
                         }
                         .rounded-pill:hover{
-                            background-color: yellow;
+                            background-color: white;
                             color: black;
                         }
                     </style>
@@ -84,6 +92,7 @@ $total = $_GET['total'];
     </nav>
 </header>
 <body>
+
 <div class="container" style="background: white;border: 1px black solid">
 
 
@@ -114,8 +123,10 @@ $total = $_GET['total'];
                 <label>4242424242424242</label>
             </div>
             </div>
+
         <div class="col-md-8 order-md-1">
-            <form class="needs-validation" novalidate  role="form" action="orderconfirm.php" method="POST" name="cardpayment" id="payform">
+
+            <form class="needs-validation"   role="form" action="orderconfirm.php" method="POST" name="cardpayment" id="payform" >
 
                 <input type="hidden" name="total" value="<?php echo $total;?>"/>
 
@@ -123,13 +134,14 @@ $total = $_GET['total'];
                     <div class="col">
                         <div class="form-outline">
                             <label class="form-label" for="form6Example1">First Name</label>
-                            <input type="text" style="border: 1px red solid;width: 50%;" id="fname" value="<?php echo $_SESSION['username'];?>" autofocus placeholder="First Name" class="form-control" required/>
+                            <input type="text" style="border: 1px red solid;width: 50%;" name="fname" id="fname" value="<?php echo $_SESSION['username'];?>" autofocus placeholder="First Name" class="form-control" required/>
                         </div>
+
                     </div>
                     <div class="col" >
                         <div class="form-outline">
                             <label class="form-label" for="form6Example2">Last name</label>
-                            <input type="text" style="border: 1px red solid;width: 50%" id="lname" placeholder="Last Name" class="form-control" required />
+                            <input type="text" style="border: 1px red solid;width: 50%" id="lname" name="lname" placeholder="Last Name" class="form-control" required />
                         </div>
                     </div>
 
@@ -195,7 +207,7 @@ $total = $_GET['total'];
                         <div class="form-group">
                             <label for="cardExpiry">YYYY</label>
                             <input type="text" class="form-control" style="width: 75px;border: 1px red solid" name="card_exp_year"   id="card_exp_year"  data-stripe="exp_year" placeholder="YYYY"   required  />
-                            <button class="btn btn btn-success rounded-pill py-2 btn-block" style="margin: 0px 180px; type="submit" id="pay">PAY NOW ( $<?php echo $total;?> )</button>
+                            <button class="btn btn btn-dark rounded-pill py-2 btn-block" style="margin: 0px 180px; type="submit" name="pay" id="pay">PAY NOW ( $<?php echo $total;?> )</button>
 
                         </div>
                 <div class="form-group">
@@ -218,9 +230,12 @@ $total = $_GET['total'];
 
 <script src="https://js.stripe.com/v2/"></script>
 <script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js"></script>
 
 <script>
-    Stripe.setPublishableKey('pk_test_51JV4w3HIYxZbUlwCM9gCCkQ5Hm0EvMzrjNvP1kmMzmSodCqb0PR1jumxypkcvJm2ifIUdc9qaRBPSlSx1N2hyMyn00yi6QwFhq');
+
+        Stripe.setPublishableKey('pk_test_51JV4w3HIYxZbUlwCM9gCCkQ5Hm0EvMzrjNvP1kmMzmSodCqb0PR1jumxypkcvJm2ifIUdc9qaRBPSlSx1N2hyMyn00yi6QwFhq');
 
     function stripeResponseHandler(status, response) {
         if (response.error) {
@@ -235,19 +250,22 @@ $total = $_GET['total'];
     }
 
     $(document).ready(function() {
-        $("#payform").submit(function() {
-            $('#pay').attr("disabled", "disabled");
+            $("#payform").submit(function () {
+                $('#pay').attr("disabled", "disabled");
 
-            Stripe.createToken({
-                number: $('#card_number').val(),
-                exp_month: $('#card_exp_month').val(),
-                exp_year: $('#card_exp_year').val(),
-                cvc: $('#card_cvc').val()
-            }, stripeResponseHandler);
+                Stripe.createToken({
+                    number: $('#card_number').val(),
+                    exp_month: $('#card_exp_month').val(),
+                    exp_year: $('#card_exp_year').val(),
+                    cvc: $('#card_cvc').val()
+                }, stripeResponseHandler);
 
-            return false;
-        });
+                return false;
+            });
+
     });
+
+
 </script>
 <?php require_once ('footer.php')?>
 </html>
