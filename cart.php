@@ -1,8 +1,8 @@
 <?php
-require_once ("config.php");
+require_once("config.php");
 session_start();
 
-if(!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true){
+if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true) {
     header("location: home.php");
     exit;
 }
@@ -10,17 +10,18 @@ if(!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true){
 $id = $_SESSION['id'];
 
 
-if($_SERVER["REQUEST_METHOD"] == "GET"){
+include_once('badge.php');
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if (isset($_GET['remove']) && is_numeric($_GET['remove'])) {
 
         $prodid = $_GET['remove'];
         $sql = "DELETE FROM `cart` WHERE `uid` = '$id' AND `pid`='$prodid'";
-        if(mysqli_query($mysqli, $sql)){
+        if (mysqli_query($mysqli, $sql)) {
             header("location: cart.php");
             exit;
         } else {
-            echo "<script>alert('".$sql."')</script>";
+            echo "<script>alert('" . $sql . "')</script>";
         }
     }
 }
@@ -29,8 +30,9 @@ $sql = "SELECT * FROM `cart` WHERE `uid`='$id'";
 $products = mysqli_query($mysqli, $sql);
 $rowc = mysqli_num_rows($products);
 $total = 0;
+
 foreach ($products as $product) {
-    $total += ((float)$product['price']-0.01) * (int)$product['quantity'];
+    $total += ((float)$product['price'] - 0.01) * (int)$product['quantity'];
 }
 
 
@@ -43,22 +45,20 @@ foreach ($products as $product) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GamingSpot</title>
 
-    <?php require_once ('design.php')?>
+    <?php require_once('design.php') ?>
     <style>
-        .form-check-input[type=checkbox].filled-in:checked+label:after,
-        label.btn input[type=checkbox].filled-in:checked+label:after {
+        .form-check-input[type=checkbox].filled-in:checked + label:after,
+        label.btn input[type=checkbox].filled-in:checked + label:after {
             border: 2px solid #4285f4;
             background-color: #4285f4;
         }
 
-        body{
+        body {
             background-image: url("images/5.jpg");
             background-size: cover;
 
 
 
-            background: lightgreen;
-            background: linear-gradient( lightgreen, greenyellow);
             min-height: 100vh;
 
         }
@@ -68,13 +68,44 @@ foreach ($products as $product) {
 </head>
 
 <header>
-    <nav >
-        <img src="images/Logo.png" height="60px" />
+    <nav>
+        <img src="images/Logo.png" height="60px"/>
+        <style>
 
+            .rounded-pill:hover {
+                background-color: white;
+                color: black;
+            }
+        </style>
         <ul style="padding: 25px">
-            <li><a href="home1.php">Home</a></li>
-            <li><a href="cart.php"><i class="fas fa-shopping-cart"></i></a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="home1.php">Home</a></li>
+            <li><a href="cart.php">
+                    <style>
+                        #ex4 .p1[data-count]:after {
+                            position: absolute;
+                            right: 10%;
+                            top: 8%;
+                            content: attr(data-count);
+                            font-size: 70%;
+                            padding: .2em;
+                            border-radius: 50%;
+                            line-height: 1em;
+                            color: white;
+                            background: rgba(255, 0, 0, .85);
+                            text-align: center;
+                            min-width: 1em;
+                        }
+
+                    </style>
+                    <div id="ex4">
+  <span class="p1 fa-stack  has-badge" data-count="<?php echo $rowcount ?>">
+    <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="<?php echo $rowcount ?>"></i>
+  </span>
+                    </div>
+
+
+                </a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="logout.php">Logout</a></li>
 
         </ul>
 
@@ -87,14 +118,40 @@ foreach ($products as $product) {
 
 
     <div class="pb-5">
-        <div class="container">
+        <div class="container" >
             <div class="row">
+
                 <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                    <div class="bg-light rounded-pill px-2 py-0 text-uppercase font-weight-bold" style="width: 25%;float:left;">
+                        <ul class="list-unstyled mb-4" >
+                            <li class="d-flex justify-content-between "><strong class="text-muted" style="margin: auto;padding-top: 23px">Total</strong>
+                                <h5 class="font-weight-bold" style="margin: auto;padding-top: 23px">$ <?= $total ?></h5>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php
+                    if ($total != 0) {
+                        echo '<a href="pay.php?total=' . $total . '" style="float: right;color:white;background-color: black "class="btn btn-dark rounded-pill py-2 btn-block">Proceed to checkout</a>';
+                    } else {
+                        echo '<a href="cart.php" style="float: right;color:white;background-color: black" class="btn btn-dark rounded-pill py-2 btn-block">Proceed to checkout</a>';
 
-                    <div class="table-responsive">
+                    }
+
+                    ?>
+
+
+                    <br>
+                    <br>
+                    <div class="table-responsive" style="width: 100%;">
                         <form action="updatecart.php" method="POST">
+                            <div class="btn btn-dark rounded-pill py-2 btn-block" style="float: right;color: black">
 
-                            <table class="table">
+                                <input type="submit" value="Update"
+                                       style="background-color: black;color:white;border:none;" id="Update"
+                                       name="update">
+                            </div>
+                            <br>
+                            <table class="table" >
                                 <thead>
                                 <tr>
                                     <th scope="col" class="border-0 bg-light">
@@ -116,7 +173,8 @@ foreach ($products as $product) {
                                 <tr>
                                     <?php if (empty($products)): ?>
                                 <tr>
-                                    <td colspan="5" style="text-align:center;"><br><strong>You have no products added in your Shopping Cart </strong></td>
+                                    <td colspan="5" style="text-align:center;"><br><strong>You have no products added in
+                                            your Shopping Cart </strong></td>
                                 </tr>
                                 <?php else: ?>
                                     <?php foreach ($products as $product):
@@ -125,25 +183,32 @@ foreach ($products as $product) {
                                         $stmt1 = mysqli_query($mysqli, $stmt);
 
                                         $prod = mysqli_fetch_assoc($stmt1);
-                                        $stock = $prod['product_quantity'];?>
+                                        $stock = $prod['product_quantity']; ?>
                                         <th scope="row" class="border-0">
                                             <div class="p-2">
                                                 <div class="ml-3 d-inline-block align-middle">
-                                                <a href="cart.php?page=product&id=<?=$product['pid']?>">
-                                                    <img src="<?=$product['image']?>" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                                </a></div>
+                                                    <a href="cart.php?page=product&id=<?= $product['pid'] ?>">
+                                                        <img src="<?= $product['image'] ?>" alt="" width="70"
+                                                             class="img-fluid rounded shadow-sm">
+                                                    </a></div>
                                                 <div class="ml-3 d-inline-block align-middle">
-                                                    <h5 class="mb-0"> <?=$product['name']?></h5>
+                                                    <h5 class="mb-0"> <?= $product['name'] ?></h5>
                                                 </div>
                                             </div>
                                         </th>
-                                        <td class="border-0 align-middle"><strong>$ <?=$product['price']-0.01?></strong></td>
+                                        <td class="border-0 align-middle">
+                                            <strong>$ <?= $product['price'] - 0.01 ?></strong></td>
                                         <td class="border-0 align-middle"><strong>
-                                                <input type="number" class="rounded-pill py-2 btn-block"  style="text-align: center" name="quantity-<?=$product['pid']?>" value="<?=$product['quantity']?>" min="1" max="<?=$stock?>" placeholder="Quantity" required>
+                                                <input type="number" class="rounded-pill py-2 btn-block"
+                                                       style="text-align: center" name="quantity-<?= $product['pid'] ?>"
+                                                       value="<?= $product['quantity'] ?>" min="1" max="<?= $stock ?>"
+                                                       placeholder="Quantity" required>
                                             </strong></td>
 
 
-                                        <td class="border-0 align-middle"><a href="cart.php?page=&remove=<?=$product['pid']?>" class="remove">Remove</a></td>
+                                        <td class="border-0 align-middle"><a
+                                                    href="cart.php?page=&remove=<?= $product['pid'] ?>" class="remove" style="color: black">Remove</a>
+                                        </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -154,33 +219,18 @@ foreach ($products as $product) {
                 </div>
             </div>
 
-            <div class="row py-5 p-4 bg-white rounded shadow-sm" style="width: 80%;margin: 0px 125px">
 
-                <div class="col-lg-6">
-                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
-                    <div class="p-4">
-                        <ul class="list-unstyled mb-4">
-                            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
-                                <h5 class="font-weight-bold">$ <?=$total?></h5>
-                            </li>
-                        </ul><a href="pay.php" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
-
-
-                        <div class="btn btn-dark rounded-pill py-2 btn-block">
-
-                            <input type="submit" value="Update" style="background-color: transparent;color:#fff;border:none;" id="Update" name="update">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
-    </form>
 </div>
 </body>
 
-<footer style="position: relative">
+<footer style="position: fixed;
+        padding: 10px 10px 0px 10px;
+        bottom: 0;
+        width: 100%;
+        height: 40px;">
+
 
     <a href="aboutus.php" style="color: black">About Us</a>
 
