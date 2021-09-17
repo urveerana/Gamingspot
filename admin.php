@@ -113,13 +113,15 @@ input,textarea{
         <ul >
             <li>
                 <div class="dropdown" style="padding: 45px">
-                    <button class="btn btn-primary rounded-pill btn-block dropdown-toggle" style="background-color: lightgreen;color: black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-primary rounded-pill btn-block dropdown-toggle" style="background-color: white;color: black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Products
                     </button>
-                    <ul class="dropdown-menu "  style="background-color: lightgreen" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu "  style=" background-image: linear-gradient(#36d1dc,#5b86e5);" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item rounded-pill btn-block" href="admin.php">Products</a></li>
                         <li><a class="dropdown-item rounded-pill btn-block" href="user.php">User</a></li>
                         <li><a class="dropdown-item rounded-pill btn-block" href="usermessage.php">Messages</a></li>
+                        <li><a class="dropdown-item rounded-pill btn-block" href="admin_delete.php">Product_Edit</a></li>
+
 
                     </ul>
                 </div>
@@ -199,7 +201,7 @@ input,textarea{
     </fieldset>
 </form>
 
-<table border="2" width="100%">
+<table border="2" width="75%" style="margin: 0px 150px">
     <tr style="text-align: center">
         <td>Sr.No.</td>
         <td>Name</td>
