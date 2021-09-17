@@ -66,12 +66,13 @@ require_once "config.php";
     </style>
 
 <div class="bs-example">
-    <table class="table table-dark">    <thead>
+    <table class="table table-dark">
+        <thead style="text-align: center">
         <tr>
-            <th>Customer_Number</th>
+            <th>Number</th>
             <th>Total</th>
             <th>Order_number</th>
-            <th>Time Of Purchase</th>
+            <th>Date Of Purchase</th>
 
 
         </tr>
@@ -86,7 +87,7 @@ require_once "config.php";
 
             while ($oselect = mysqli_fetch_assoc($hselect)) {
                 ?>
-                <tr>
+                <tr style="text-align: center">
                     <td><?php echo $oselect['id']; ?></td>
                     <td>$ <?php echo $oselect['total']; ?></td>
                     <td><?php echo $oselect['orderno']; ?></td>
@@ -106,7 +107,7 @@ require_once "config.php";
         </tbody>
     </table>
 </div>
-    <div><a  href="home1.php" class="rounded-pill btn-block p-1 "><p style="text-align:center" ><input type="submit" class="btn btn-warning rounded-pill py-2 btn-block btn-group-sm" value="Back To HomePage"></input></p> </a>
+    <div><a  href="home1.php" class="rounded-pill btn-block p-1 "><p style="text-align:center" ><input type="submit" class="btn btn-danger rounded-pill py-2 btn-block btn-group-sm" value="Back To HomePage"></input></p> </a>
 </div>
 
     <footer style="position: fixed;

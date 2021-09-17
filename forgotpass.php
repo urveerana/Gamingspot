@@ -149,7 +149,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <ul >
             <style>
                 .rounded-pill:hover{
-                    background-color: yellow;
+                    background-color: white;
+                    color: black;
                 }
 
             </style>
@@ -198,7 +199,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 </body>
 <footer style="position: absolute">
-    <a href="index.html" style="color: black">About Us</a>
-    <a href="#" style="color: black">Addresses</a>
-    <a href="login.html" style="color: black">Contact</a>
+    <a href="aboutus.php" style="color: black">About Us</a>
+
+    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
+    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
 </footer>

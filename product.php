@@ -35,9 +35,9 @@
 
         <ul>
             <li style="padding-top: -5px">
-                <div class="btn-group shadow-0" style="margin: 0px -300px">
+                <div class="btn-group shadow-0" style="margin: 0px -250px">
                     <a href="product.php">
-                        <input type="submit" class="btn btn-light rounded-pill py-2 btn-block" style="background-color: #1c7430;color:white;"
+                        <input type="submit" class="btn btn-light rounded-pill py-2 btn-block" style="background-color: white;color:black;"
                                value="Product" >
                     </a>
                 </div>
@@ -52,13 +52,14 @@
                         <div class="form-outline">
                             <input type="text"  name="search1" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
                         </div>&nbsp;
-                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="search" >
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="Search" >
                     </div>
                 </form>
             </li>
             <style>
                 .rounded-pill:hover{
-                    background-color: yellow;
+                    background-color: white;
+                    color: black;
                 }
             </style>
             <li><a class="rounded-pill btn-block p-1 "  href="home.php">Home</a></li>
@@ -71,7 +72,28 @@
     </nav>
 </header>
 <body>
-<div class="row">
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        background-color: #DCE1E0;
+    }
+
+    .card:hover {
+        background-color:lightblue;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .row {
+        margin: 0px 30px;
+        width: 95% ;
+        border: 5px dotted black;
+    }
+    a:hover{
+        color: black;
+    }
+</style>
+<div class="row" >
 
 
     <?php
@@ -81,8 +103,8 @@
         while ($row = mysqli_fetch_assoc($result)) {
             {
                 ?>
-                <div class="col-md-3  mt-2">
-                    <div class="card">
+                <div class="col-md-3  mt-2" >
+                    <div class="card" style="border: 2px dotted black">
                         <?php
                         if($row['product_quantity'] > 0) {
                             ?>

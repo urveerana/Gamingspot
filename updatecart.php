@@ -15,8 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $quantity = (int)$v;
                 $sql = "UPDATE `cart` SET `quantity`='$quantity' WHERE `uid` = '$id' AND `pid`='$prodid'";
                 if(mysqli_query($mysqli, $sql)){
-                    header("location: cart.php");
-                    exit;
+                    continue;
                 } else {
                     echo "<script>alert('Update Error In Cart')</script>";
                 }

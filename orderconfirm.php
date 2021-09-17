@@ -157,7 +157,8 @@ if(!empty($_POST['stripeToken'])){
             background-size: cover;
         }
          .rounded-pill:hover{
-             background-color: yellow;
+             background-color: white;
+             color: black;
          }
     </style>
 

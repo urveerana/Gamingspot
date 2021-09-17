@@ -48,15 +48,15 @@ require_once('config.php');
                         data-mdb-toggle="dropdown"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
-                        style="background-color: #1c7430;color:white;"
+                        style="background-color: white;color:black;"
 
                     >
                         Categories
                     </button>
-                    <ul class="dropdown-menu" style="background-color: lightgreen;color: white">
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps5.php">Ps5</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps4.php">Ps4</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Xbox.php">Xbox</a></li>
+                    <ul class="dropdown-menu" style="background-image: linear-gradient(#36d1dc,#5b86e5);color: white">
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Ps5.php">Ps5</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Ps4.php">Ps4</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Xbox.php">Xbox</a></li>
 
                     </ul>
                 </div>
@@ -66,7 +66,8 @@ require_once('config.php');
             </li>
             <style>
                 .rounded-pill:hover{
-                    background-color: yellow;
+                    background-color: white;
+                    color: black;
                 }
             </style>
 
@@ -76,7 +77,7 @@ require_once('config.php');
                         <div class="form-outline">
                             <input type="text"  name="search" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
                         </div>&nbsp;
-                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="search" >
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="Search" >
                     </div>
                 </form>
             </li>

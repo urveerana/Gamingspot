@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('config.php');
-
+require_once ('badge.php');
 if(!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"] === true){
     header("location: home1.php");
     exit;
@@ -92,7 +92,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GamingSpot</title>
     <link href="hf.css" rel="stylesheet" type="text/css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@1,100&display=swap" rel="stylesheet">
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -117,22 +119,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartit'])) {
 
         <ul>
             <li style="padding-top: -5px">
-                <div class="btn-group shadow-0" style="margin: 0px -300px">
+                <div class="btn-group shadow-0" style="margin: 0px -290px">
                     <button
                             type="button"
                             class="btn btn-light dropdown-toggle rounded-pill py-2 btn-block"
                             data-mdb-toggle="dropdown"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            style="background-color: #1c7430;color:white;"
+                            style="background-color: white;color:black;"
 
                     >
                         Categories
                     </button>
-                    <ul class="dropdown-menu" style="background-color: lightgreen;color: white">
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps5.php">Ps5</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="#">Ps4</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="#">Xbox</a></li>
+                    <ul class="dropdown-menu" style="background-image: linear-gradient(#36d1dc,#5b86e5);color: white">
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Ps5.php">Ps5</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="#">Ps4</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="#">Xbox</a></li>
                     </ul>
                 </div>
 
@@ -141,20 +143,41 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartit'])) {
             </li>
 
             <li>
-                <form style="margin: 15px;-800px ">
+                <form style="margin: 15px;-800px " action="searchbutton.php" method="post">
                     <div class="input-group" >
                         <div class="form-outline">
-                            <input type="search" id="form1" class="form-control" placeholder="Search" style="width: 100%;margin: 0px"/>
-                        </div>
-                        <button type="button" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
-                        </button>
+                            <input type="text"  name="search" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
+                        </div>&nbsp;
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="Search" >
                     </div>
                 </form>
             </li>
-            <li><a href="home1.php">Home</a></li>
-            <li><a href="cart.php"><i class="fas fa-shopping-cart"></i></a></li>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="home1.php">Home</a></li>
+            <li><a href="cart.php"> <style>
+                        #ex4 .p1[data-count]:after{
+                            position:absolute;
+                            right:10%;
+                            top:8%;
+                            content: attr(data-count);
+                            font-size:70%;
+                            padding:.2em;
+                            border-radius:50%;
+                            line-height:1em;
+                            color: white;
+                            background:rgba(255,0,0,.85);
+                            text-align:center;
+                            min-width: 1em;
+                        }
+                        .rounded-pill:hover{
+                            background-color: white;
+                            color: black;
+                        }
+                    </style>
+                    <div id="ex4">
+  <span class="p1 fa-stack  has-badge" data-count="<?php echo $rowcount?>">
+    <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="<?php echo $rowcount?>"></i>
+  </span>
+                    </div></a></li>            <li><a class="rounded-pill btn-block p-1 " href="logout.php">Logout</a></li>
 
 
         </ul>
@@ -165,7 +188,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartit'])) {
 
 
 <div class="product content-wrapper" >
-    <img style="margin: 0px 400px;object-fit: contain" class="border border-info"src="<?=$s_product['product_image']?>" width="700" height="350" alt="<?=$s_product['product_name']?>">
+
+    <style>
+         #img:hover {
+            transform: scale(1.20);
+            cursor: zoom-in;
+        }
+    </style>
+    <img id="img" style="margin: 0px 400px;object-fit: contain" class="border border-info"src="<?=$s_product['product_image']?>" width="700" height="350" alt="<?=$s_product['product_name']?>">
     <div style="margin: 0px 400px">
         <h1 class="name" style="font-size: 2rem"><?=$s_product['product_name']?></h1>
         <span class="price" style="font-size: 2rem">
@@ -180,24 +210,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cartit'])) {
 
 
 
-            <input type="submit" class="btn btn-warning rounded-pill py-2 btn-block" name='cartit'  value="Add To Cart">
+            <input type="submit" class="btn btn-primary rounded-pill py-2 btn-block" name='cartit'  value="Add To Cart">
         </form>
         <br>
-        <div class="border border-info" style="text-align: justify;text-align: -moz-center" ><b>Product Info</b><br><br>
-            <?=$s_product['product_desc']?>
+        <div class="border border-info" style="text-align: justify;font-family: Dubai;font-weight: bold" ><b>Product Info</b><br><br>
+           <p> <?=$s_product['product_desc']?> </p>
         </div>
     </div>
 </div>
 </body>
-
-
-
-
-<footer style="position: relative">
-
-    <a href="aboutus.php" style="color: black">About Us</a>
-
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
-</footer>
+<?php require_once ('footer.php')?>
 

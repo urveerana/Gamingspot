@@ -52,7 +52,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
 
 </head>
 
-<header>
+<header >
     <nav>
         <img src="images/Logo.png" height="60px"/ >
 
@@ -61,7 +61,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
                 <div class="btn-group shadow-0" style="margin: 0px -260px">
                     <a href="product.php">
                         <input type="submit" id="pro" class="btn btn-light rounded-pill py-2 btn-block"
-                               style="background-color: #1c7430;color:white;"
+                               style="background-color: white;color:black;"
                                value="Products">
                     </a>
                 </div>
@@ -70,7 +70,9 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
             </li>
             <style>
                 .rounded-pill:hover {
-                    background-color: yellow;
+                    background-color: white;
+                    color :  black;
+
                 }
 
             </style>
@@ -91,7 +93,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
                             <input type="text" name="search1" id="form1" class="form-control rounded-pill btn-block"
                                    placeholder="Search" style="width: 100%;margin: 0px"/>
                         </div>&nbsp;
-                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="Search">
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="Search">
                     </div>
                 </form>
             </li>
@@ -147,7 +149,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
             <!--                alt=""-->
             <!--        />-->
 
-            <video controls autoplay height="320" width="420px" muted>
+            <video controls autoplay loop height="320" width="420px" muted>
                 <source src="PS5.mp4" type="video/mp4">
                 <source src="PS5.mp4.ogg" type="video/ogg">
                 Your browser does not support the video tag.
@@ -164,7 +166,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
             <br><br>
             <br><br><br><br>
 
-            <video controls autoplay height="320" width="420px" muted>
+            <video controls autoplay loop  height="320" width="420px" muted>
                 <source src="Xbox.mp4" type="video/mp4">
                 <source src="Xbox.mp4.ogg" type="video/ogg">
                 Your browser does not support the video tag.
@@ -194,7 +196,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
             <!--        />-->
             <!---->
 
-            <video controls autoplay height="320" width="420px" muted style="margin: 0px 50px;">
+            <video controls autoplay loop height="320" width="420px" muted style="margin: 0px 50px;">
                 <source src="ns.mp4" type="video/mp4">
                 <source src="ns.mp4.ogg" type="video/ogg">
                 Your browser does not support the video tag.
@@ -204,7 +206,7 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
             <br>
             <br><br>
             <br><br><br><br>
-            <video controls autoplay height="320" width="420px" muted style="margin: 0px 50px;">
+            <video controls autoplay loop height="320" width="420px" muted style="margin: 0px 50px;">
                 <source src="ps4.mp4" type="video/mp4">
                 <source src="ps4.mp4.ogg" type="video/ogg">
                 Your browser does not support the video tag.
@@ -270,60 +272,59 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
     <br>
 
 
-    <div class="container" style=" border: 2px solid black ;
-        background-color:lightblue ;
-    margin: 90px 120px">
+    <div class="container" style=" border: 2px solid black ; width : 1000px; height:500px ; align-text : center;
+        background-color:#60c6eb";
+         margin: 90px 100px">
 
-        <div class="row">
-            <div class="col-sm-12 col-lg-12" style=" border: 2px solid black ;
-         background-color:red ;
-         color: white;
-         margin: 90px 120px">
-                <h1 class="h1">
-                    Contact us <small>Feel free to Share</small></h1>
-            </div>
-            <div class="col-md-8">
-                <div class="well well-sm">
-                    <form action="feedback.php" method="post">
-                        <div class="row">
-                            <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
-                                <div class="form-group">
-                                    <label for="name" style="color: green;font-weight: bold;font-size: 22px">
-                                        Name</label>
-                                    <input type="text" class="form-control" id="name" style="border: 3px solid black"
-                                           placeholder="Enter name" name="name" required="required"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" style="color: green;font-weight: bold;font-size: 22px">
-                                        Email Address</label>
-                                    <div class="input-group">
+    <div class="row">
+        <div class="col-sm-12 col-lg-12" style="
+         color: Black";
+             margin: 70px 120px">
+        <h1 class="h1">
+            Contact us <small><br>Feel free to Share</small></h1>
+    </div>
+    <div class="col-md-8">
+        <div class="well well-sm">
+            <form action="feedback.php" method="post">
+                <div class="row">
+                    <div class="col-md-6" style="background-color:#60c6eb; ">
+                        <div class="form-group">
+                            <label for="name" style="color: black;font-weight: bold;font-size: 22px">
+                                Name</label>
+                            <input type="text" class="form-control" id="name" style="border: 3px solid black"
+                                   placeholder="Enter name" name="name" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" style="color: black;font-weight: bold;font-size: 22px">
+                                Email Address</label>
+                            <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                                        <input type="email" class="form-control" id="email"
-                                               style="border: 3px solid black" placeholder="Enter email" name="email"
-                                               required="required"/></div>
-                                </div>
-                                <br>
-                                <br>
-                                <div class="col-md-12">
-                                    <input type="submit" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm"
-                                           style="border: 3px solid black" name="messagebtn" id="btnContactUs"
-                                           value="Send Message">
-                                </div>
-                                <br>
-                            </div>
-                            <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
-                                <div class="form-group">
-                                    <label for="name" style="color: green;font-weight: bold;font-size: 22px">
-                                        Message</label>
-                                    <textarea name="message" id="message" class="form-control" rows="4" cols="25"
-                                              style="border: 3px solid black" required="required"
-                                              placeholder="Message"></textarea>
-                                </div>
-
-                            </div>
-
+                                <input type="email" class="form-control" id="email"
+                                       style="border: 3px solid black" placeholder="Enter email" name="email"
+                                       required="required"/></div>
                         </div>
+                        <br>
+                        <br>
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-danger rounded-pill py-2 btn-block btn-group-sm"
+                                   style="" name="messagebtn" id="btnContactUs"
+                                   value="Send Message">
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-md-6" style="background-color:#60c6eb">
+                        <div class="form-group">
+                            <label for="name" style="color: black;font-weight: bold;font-size: 22px">
+                                Message</label>
+                            <textarea name="message" id="message" class="form-control" rows="4" cols="25"
+                                      style="border: 3px solid black" required="required"
+                                      placeholder="Message"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
                     </form>
                 </div>
             </div>
@@ -331,14 +332,19 @@ if (array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
     </div>
 
 </body>
-<footer style="position: fixed;
+<br>
+<br>
+<footer style="position: relative;
         padding: 10px 10px 0px 10px;
         bottom: 0;
         width: 100%;
-        height: 40px;">
+        height: 40px;
+    background-image: linear-gradient(#36d1dc,#5b86e5);
+
+        ">
 
     <a href="aboutus.php" style="color: black;">About Us</a>
 
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-    <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
+    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black; ">Addresses</a>
+    <a href="#" style="color: black;" onclick="return false;">Contact-+1433-222-2213</a>
 </footer>

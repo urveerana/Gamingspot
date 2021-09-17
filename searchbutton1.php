@@ -42,13 +42,14 @@ require_once ('config.php');
                         <div class="form-outline">
                             <input type="text"  name="search1" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
                         </div>&nbsp;
-                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="search" >
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="search" >
                     </div>
                 </form>
             </li>
             <style>
                 .rounded-pill:hover{
-                    background-color: yellow;
+                    background-color: white;
+                    color: black;
                 }
             </style>
             <li><a class="rounded-pill btn-block p-1 " href="home.php">Home</a></li>

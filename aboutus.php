@@ -27,7 +27,10 @@
             background-image: url("images/5.jpg");
             background-size: cover;
         }
-
+        .rounded-pill:hover{
+            background-color: white;
+            color: black;
+        }
     </style>
 
 </head>
@@ -37,7 +40,7 @@
         <img src="images/Logo.png" height="60px" />
 
         <ul style="padding: 25px">
-            <li><a href="home.php">Home</a></li>
+            <li><a class="rounded-pill btn-block p-1 " href="home.php">Home</a></li>
         </ul>
 
     </nav>
@@ -125,11 +128,5 @@
 </div>
 
 </body>
-<footer style="position: relative">
-
-    <a href="aboutus.php" style="color: black">About Us</a>
-
-    <a href="https://goo.gl/maps/AA5Na8QjBoht4SAFA" style="color: black">Addresses</a>
-        <a href="#" style="color: black" onclick="return false;">Contact-+1433-222-2213</a>
-</footer>
+<?php require_once ('footer.php')?>
 </html>

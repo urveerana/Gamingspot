@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once ("config.php");
 if( array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     echo '';
 } else {
@@ -8,7 +8,9 @@ if( array_key_exists("loggedin", $_SESSION) && isset($_SESSION["loggedin"]) && $
     exit;
 }
 $user = htmlspecialchars($_SESSION["username"]);
-
+$id=$_SESSION['id'];
+$query=mysqli_query($mysqli,"SELECT * FROM users where id='$id'");
+$row=mysqli_fetch_assoc($query);
 include_once ('badge.php');
 ?>
 <!DOCTYPE html>
@@ -63,15 +65,15 @@ include_once ('badge.php');
                             data-mdb-toggle="dropdown"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
-                            style="background-color: #1c7430;color:white;"
+                            style="background-color: white;color:black;"
 
                     >
                         Categories
                     </button>
-                    <ul class="dropdown-menu" style="background-color: lightgreen;color: white">
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps5.php">Ps5</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Ps4.php">Ps4</a></li>
-                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: red" href="Xbox.php">Xbox</a></li>
+                    <ul class="dropdown-menu" style="background-image: linear-gradient(#36d1dc,#5b86e5);color: black">
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Ps5.php">Ps5</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Ps4.php">Ps4</a></li>
+                        <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="Xbox.php">Xbox</a></li>
 
                     </ul>
                 </div>
@@ -79,7 +81,8 @@ include_once ('badge.php');
 
                 <style>
                     .rounded-pill:hover{
-                        background-color: yellow;
+                        background-color: white;
+                        color: black;
                     }
 
                 </style>
@@ -91,7 +94,7 @@ include_once ('badge.php');
                         <div class="form-outline">
                             <input type="text"  name="search" id="form1" class="form-control rounded-pill btn-block" placeholder="Search" style="width: 100%;margin: 0px"/>
                         </div>&nbsp;
-                        <input type="submit" class="btn btn-warning rounded-pill btn-block" value="Search" >
+                        <input type="submit" class="btn btn-danger rounded-pill btn-block" value="Search" >
 
                     </div>
                 </form>
@@ -118,17 +121,43 @@ include_once ('badge.php');
   <span class="p1 fa-stack  has-badge" data-count="<?php echo $rowcount?>">
     <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0"></i>
   </span></a></li>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <li>
+                <img style=" background-color: white;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+" src="<?php echo $row['image']; ?>">
+            </li>
            <li> <div style="text-align: end">
 
-                <b style="text-transform:uppercase"><i class="fas fa-user fa-2px" style="text-align: center"><br><?php echo$user ?></i>  </b>
+                <b style="text-transform:uppercase"> <div class="btn-group shadow-0" style="margin: 0px -50px">
+                        <button
+                                type="button"
+                                class="btn btn-light dropdown-toggle rounded-pill py-sm-0 btn-block"
+                                data-mdb-toggle="dropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                style="background-color: white;color: black"
+                                    
+                        >
+
+                            <?php echo$user ?> </b>                     </button>
+                        <ul class="dropdown-menu" style="background-image: linear-gradient(#36d1dc,#5b86e5);color: white">
+                            <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="profile.php">Profile</a></li>
+                            <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="order_history.php">History</a></li>
+                            <li><a class="dropdown-item dropdown-primary rounded-pill py-2 btn-block" style="color: black" href="logout.php">Logout</a></li>
+
+                        </ul>
+                    </div>
 
 
 
 
             </div></li>
-            <li><a class="rounded-pill btn-block p-1 " href="order_history.php" >History</a></li>
 
-            <li><a class="rounded-pill btn-block p-1 " href="logout.php" >Logout</a></li>
 
         </ul>
 
@@ -146,30 +175,40 @@ include_once ('badge.php');
   margin-right: auto;
   width: 50%;"/>
 
-<div class="slider">
-    <div><img src="images/bx1.png" width="1200px" style="display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;"/></div>
-    <div><img src="images/bx2.jpg" width="1200px" style="display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;"/></div>
-    <div><img src="images/bx3.png" width="1200px" style="display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;"/></div>
+<div class="slider" style="text-align: center">
+    <div><video controls autoplay loop  width="1400" muted>
+            <source src="Xbox.mp4" type="video/mp4">
+            <source src="Xbox.mp4.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video> </div>
+    <div><video controls autoplay loop width="1400" muted>
+            <source src="PS5.mp4" type="video/mp4">
+            <source src="PS5.mp4.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video></div>
+    <div><video controls autoplay loop width="1400" muted style="margin: 0px 50px;">
+            <source src="ps4.mp4" type="video/mp4">
+            <source src="ps4.mp4.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video></div>
 </div>
 
-<div class="row">
+<div style="background-color: #b8daff; " id="1" >
+<div class="row" >
+
     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-        <img
+        <img style=" width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;"
                 src="images/games/1.jpg"
                 class="w-100 shadow-1-strong rounded mb-4"
                 alt=""
+
         />
 
-        <img
+        <img style=" width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;"
                 src="images/games/2.jpg"
                 class="w-100 shadow-1-strong rounded mb-4"
                 alt=""
@@ -191,13 +230,17 @@ include_once ('badge.php');
     </div>
 
     <div class="col-lg-4 mb-4 mb-lg-0">
-        <img
+        <img style=" width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;"
                 src="images/games/5.jpg" width="400px" height="450px"
                 class="w-100 shadow-1-strong rounded mb-4"
                 alt=""
         />
 
-        <img
+        <img style=" width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;"
                 src="images/games/6.jpg" width="400px" height="450px"
                 class="w-100 shadow-1-strong rounded mb-4"
                 alt=""
@@ -205,7 +248,7 @@ include_once ('badge.php');
     </div>
 
 </div>
-
+</div>
 <h1>
     * Our Most Selling Products *
 </h1>
@@ -246,54 +289,57 @@ include_once ('badge.php');
 </div>
 
 <br>
-<div class="container" style=" border: 2px solid black ;
-        background-color:lightblue ;
-    margin: 90px 120px">
+<div class="container" style=" border: 2px solid black ; width : 1000px; height:500px ; align-text : center;margin: 90px 260px;background-color: #60c6eb">
 
-    <div class="row">
-        <div class="col-sm-12 col-lg-12" style=" border: 2px solid black ;
-         background-color:red ;
-         color: white;
-         margin: 90px 120px">
-            <h1 class="h1">
-                Contact us <small>Feel free to Share</small></h1>
-        </div>
-        <div class="col-md-8">
-            <div class="well well-sm">
-                <form action="feedback.php" method="post">
-                    <div class="row">
-                        <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
-                            <div class="form-group">
-                                <label for="name" style="color: green;font-weight: bold;font-size: 22px" >
-                                    Name</label>
-                                <input type="text" class="form-control" id="name" style="border: 3px solid black" placeholder="Enter name" name="name" value="<?php echo $user?>" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <label for="email" style="color: green;font-weight: bold;font-size: 22px">
-                                    Email Address</label>
-                                <div class="input-group">
+<div class="row">
+    <div class="col-sm-12 col-lg-12" style="
+         color: Black
+         margin: 70px 120px">
+    <h1 class="h1">
+        Contact us <small><br>Feel free to Share</small></h1>
+</div>
+<div class="col-md-8">
+    <div class="well well-sm">
+        <form action="feedback.php" method="post">
+            <div class="row">
+                <div class="col-md-6" style="background-color:#60c6eb; ">
+                    <div class="form-group">
+                        <label for="name" style="color: black;font-weight: bold;font-size: 22px">
+                            Name</label>
+                        <input type="text" class="form-control" id="name" style="border: 3px solid black"
+                               placeholder="Enter name" name="name" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" style="color: black;font-weight: bold;font-size: 22px">
+                            Email Address</label>
+                        <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                                    <input type="email" class="form-control" id="email" style="border: 3px solid black" placeholder="Enter email" name="email" required="required" /></div>
-                            </div>
-                            <br>
-                            <br>
-                            <div class="col-md-12">
-                                <input type="submit" class="btn btn-info rounded-pill py-2 btn-block btn-group-sm" style="border: 3px solid black" name="messagebtn"id="btnContactUs" value="Send Message">
-                            </div>
-                            <br>
-                        </div>
-                        <div class="col-md-6" style="border: 2px solid yellow;background-color: sandybrown">
-                            <div class="form-group">
-                                <label for="name" style="color: green;font-weight: bold;font-size: 22px">
-                                    Message</label>
-                                <textarea name="message" id="message" class="form-control" rows="4" cols="25" style="border: 3px solid black" required="required"
-                                          placeholder="Message"></textarea>
-                            </div>
-
-                        </div>
-
+                            <input type="email" class="form-control" id="email"
+                                   style="border: 3px solid black" placeholder="Enter email" name="email"
+                                   required="required"/></div>
                     </div>
+                    <br>
+                    <br>
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-danger rounded-pill py-2 btn-block btn-group-sm"
+                               style="" name="messagebtn" id="btnContactUs"
+                               value="Send Message">
+                    </div>
+                    <br>
+                </div>
+                <div class="col-md-6" style="background-color:#60c6eb">
+                    <div class="form-group">
+                        <label for="name" style="color: black;font-weight: bold;font-size: 22px">
+                            Message</label>
+                        <textarea name="message" id="message" class="form-control" rows="4" cols="25"
+                                  style="border: 3px solid black" required="required"
+                                  placeholder="Message"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
                 </form>
             </div>
         </div>
